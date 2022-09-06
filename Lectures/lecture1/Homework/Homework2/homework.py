@@ -45,4 +45,17 @@ for i in text.read():
 print(answer)  # 1 2 4
 print(mult)
 
-#18. перемешать список
+
+# 18. перемешать список
+def Shuffle(list):
+    for i in range(5 * len(list)):
+        a = random.randint(0, len(list) - 1)
+        b = random.randint(0, len(list) - 1)
+        list[a], list[b] = list[b], list[a]
+    return list
+
+
+myCuteUwUListlist = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+print(myCuteUwUListlist)
+print(Shuffle(myCuteUwUListlist))
+print(Shuffle(myCuteUwUListlist))

@@ -6,8 +6,8 @@
 # - 7 -> да
 # - 1 -> нет
 
-number=input('Write day of the week: ')
-if number ==6 or number ==7:
+number = input('Write day of the week: ')
+if number == 6 or number == 7:
     print('Weekend')
 else:
     print('Workday')
