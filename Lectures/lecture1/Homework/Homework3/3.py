@@ -1,6 +1,6 @@
 import random
 
-n = 10
+n = 9
 m = 4
 my_list = [random.randint(-10, 10) for x in range(n)]
 my_float = [random.uniform(-10, 10) for x in range(m)]
@@ -31,7 +31,7 @@ print(sum_of_odds(my_list))
 # - [2, 3, 5, 6] => [12, 15]
 
 def multiply_pairs(some_list):
-    return [some_list[i] * some_list[-i - 1] for i in range(len(some_list) // 2)]
+    return [some_list[i] * some_list[-i - 1] for i in range(len(some_list) // 2+1)]
 
 
 print(multiply_pairs(my_list))
