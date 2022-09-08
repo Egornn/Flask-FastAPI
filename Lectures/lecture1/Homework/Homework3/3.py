@@ -1,6 +1,6 @@
 import random
 
-n = 9
+n = 10
 m = 4
 my_list = [random.randint(-10, 10) for x in range(n)]
 my_float = [random.uniform(-10, 10) for x in range(m)]
@@ -20,7 +20,7 @@ def sum_of_odds(big_list):
     return sum_odds
 
 
-print(sum_of_odds(my_list))
+print('Summ of odds positioned',sum_of_odds(my_list))
 
 
 # Напишите программу, которая найдёт произведение пар чисел списка. Парой считаем первый и последний элемент, второй и предпоследний и т.д.
@@ -31,10 +31,10 @@ print(sum_of_odds(my_list))
 # - [2, 3, 5, 6] => [12, 15]
 
 def multiply_pairs(some_list):
-    return [some_list[i] * some_list[-i - 1] for i in range(len(some_list) // 2+1)]
+    return [some_list[i] * some_list[-i - 1] for i in range((len(some_list) + 1) // 2)]
 
 
-print(multiply_pairs(my_list))
+print('paired multiplication',multiply_pairs(my_list))
 
 
 # Задайте список из вещественных чисел. Напишите программу, которая найдёт разницу между максимальным и минимальным значением дробной части элементов.
@@ -47,7 +47,7 @@ def after_the_dot(float_list):
 
 
 temp_list = after_the_dot(my_float)
-print(max(temp_list) - min(temp_list))
+print('Diff between min and max non-integer parts', max(temp_list) - min(temp_list))
 
 
 # Alternatively without min and max
@@ -67,7 +67,7 @@ def max_or_min_of_float(fraction_list, max_min="max"):
         return -1
 
 
-print(max_or_min_of_float(temp_list, 'max') - max_or_min_of_float(temp_list, 'min'))
+print('Another diff between min and max non-integer parts',max_or_min_of_float(temp_list, 'max') - max_or_min_of_float(temp_list, 'min'))
 
 
 # Напишите программу, которая будет преобразовывать десятичное число в двоичное.
@@ -107,4 +107,4 @@ def fib_both_direct(both_limits):
     return fib_list
 
 
-print(fib_both_direct(n))
+print(f'Fibonacci from -{n} to {n}',fib_both_direct(n))
