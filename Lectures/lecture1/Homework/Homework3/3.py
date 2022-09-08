@@ -15,7 +15,7 @@ print('Float list', my_float)
 # - [2, 3, 5, 9, 3] -> на нечётных позициях элементы 3 и 9, ответ: 12
 def sum_of_odds(big_list):
     sum_odds = 0
-    for i in range(0, len(big_list), 2):
+    for i in range(1, len(big_list), 2):
         sum_odds += big_list[i]
     return sum_odds
 
