@@ -9,6 +9,7 @@ def SumInt(number):
         sum += number % 10
         number = number // 10
     return int(sum)
+print ([int(i) for i in input() if i!='.'])
 
 
 n = (input('Input a float '))
