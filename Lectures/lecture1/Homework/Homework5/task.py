@@ -157,16 +157,10 @@ def draw_x_o(horizontal, vertical, x_or_o):
     im.save(board_path, quality=100)
 
 
-def check_if_win(board_position, symbol):
+def check_if_win(b, symbol):
     win = [symbol for x in range(3)]
-    return board_position[0] == win \
-           or board_position[1] == win \
-           or board_position[2] == win \
-           or [board_position[i][0] for i in range(3)] == win \
-           or [board_position[i][1] for i in range(3)] == win \
-           or [board_position[i][2] for i in range(3)] == win \
-           or [board_position[i][i] for i in range(3)] == win \
-           or [board_position[i][-i - 1] for i in range(3)] == win
+    lines=[b[0], b[1],b[2],[b[i][0] for i in range(3)],[b[i][1] for i in range(3)],[b[i][2] for i in range(3)],[b[i][i] for i in range(3)],[b[i][-i - 1] for i in range(3)]]
+    return win in lines
 
 
 def play_cycle(board):
