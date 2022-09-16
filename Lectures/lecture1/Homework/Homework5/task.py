@@ -108,7 +108,7 @@ def get_input_coordinates(board, symbol):
         coordinates = input(f'Enter the (row,column) to draw a {symbol} from 1 to 3) ')
         try:
             coord_given = list(map(int, coordinates.split(',')))
-            coord=[coord_given[i]-1 for i in range(len(coord_given))]
+            coord = [coord_given[i] - 1 for i in range(len(coord_given))]
         except:
             pass
         if not len(coord) == 2:
@@ -150,16 +150,18 @@ def draw_x_o(horizontal, vertical, x_or_o):
     im = Image.open(board_path)
     draw = ImageDraw.Draw(im)
     if x_or_o == 'X':
-        draw.line(coordinates_of_x(horizontal, vertical, "L"), fill=(255, 0, 0), width=size//30)
-        draw.line(coordinates_of_x(horizontal, vertical, "R"), fill=(255, 0, 0), width=size//30)
+        draw.line(coordinates_of_x(horizontal, vertical, "L"), fill=(255, 0, 0), width=size // 30)
+        draw.line(coordinates_of_x(horizontal, vertical, "R"), fill=(255, 0, 0), width=size // 30)
     elif x_or_o == 'O':
-        draw.ellipse(coordinates_of_o(horizontal, vertical), fill=(255, 255, 255), outline=(0, 256, 0), width=size//30)
+        draw.ellipse(coordinates_of_o(horizontal, vertical), fill=(255, 255, 255), outline=(0, 256, 0),
+                     width=size // 30)
     im.save(board_path, quality=100)
 
 
 def check_if_win(b, symbol):
     win = [symbol for x in range(3)]
-    lines=[b[0], b[1],b[2],[b[i][0] for i in range(3)],[b[i][1] for i in range(3)],[b[i][2] for i in range(3)],[b[i][i] for i in range(3)],[b[i][-i - 1] for i in range(3)]]
+    lines = [b[0], b[1], b[2], [b[i][0] for i in range(3)], [b[i][1] for i in range(3)], [b[i][2] for i in range(3)],
+             [b[i][i] for i in range(3)], [b[i][-i - 1] for i in range(3)]]
     return win in lines
 
 
@@ -185,6 +187,51 @@ def play_cycle(board):
 
 
 current_board = initial_setup(size)
-play_cycle(current_board)
+
+
+# play_cycle(current_board)
+
 
 # 4.Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных.
+
+def encode(string):
+    if string == '': return ''
+    encoded = ''
+    i = 0
+    while i < len(string) - 1:
+        counter = 1
+        symbol = string[i]
+        j = i
+        while j < len(string) - 1:
+            if string[j] == string[j + 1]:
+                counter += 1
+                j += 1
+            else:
+                break
+        encoded += str(counter) + symbol
+        i = j + 1
+    return encoded
+
+
+def decode(enc_string):
+    if enc_string == '': return ''
+    decoded = ''
+    i = 0
+    while i < len(enc_string) - 1:
+        number = ""
+        j = i
+        while j < len(enc_string):
+            if enc_string[j].isdigit():
+                number += enc_string[j]
+            else:
+                symbol = enc_string[j]
+                decoded += symbol * int(number)
+                break
+            j += 1
+        i = j + 1
+    return decoded
+
+
+cryptic = encode('jjeerff')
+print(cryptic)
+print(decode(cryptic))
