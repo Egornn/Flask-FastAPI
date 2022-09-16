@@ -84,13 +84,55 @@ def choose_mode(mode, candies, max_at_once):
 
 # 3.Создайте программу для игры в ""Крестики-нолики"".
 board_path = 'tic-tac-toe.jpg'
-size = 300
+size = 1500
+
+
+def initial_setup(size):
+    try:
+        os.remove(board_path)
+    except:
+        pass
+    im = Image.new('RGB', (size, size), (256, 256, 256))
+    draw = ImageDraw.Draw(im)
+    for i in range(size // 3, size, size // 3):
+        draw.line((i, 0, i, size), fill=(0, 0, 0), width=10)
+        draw.line((0, i, size, i), fill=(0, 0, 0), width=10)
+    im.save(board_path, quality=100)
+    return [[' ' for x in range(3)] for y in range(3)]
+
+
+def get_input_coordinates(board, symbol):
+    is_done = False
+    coord = [-1, -1]
+    while (not (0 <= coord[0] <= 2)) or (not (0 <= coord[1] <= 2)) or not is_done:
+        coordinates = input(f'Enter the (row,column) to draw a {symbol} from 1 to 3) ')
+        try:
+            coord_given = list(map(int, coordinates.split(',')))
+            coord=[coord_given[i]-1 for i in range(len(coord_given))]
+        except:
+            pass
+        if not len(coord) == 2:
+            print('Write coordinates in a form "x,y"')
+            coord = [-1, -1]
+
+        # coord[0] = int(input(f'Enter the row to draw a {symbol} from 1 to 3): ')) - 1
+        # coord[1] = int(input(f'Enter the column to draw a {symbol} from 1 to 3): ')) - 1
+        try:
+            correct = board[coord[0]][coord[1]] == " "
+            if correct:
+                is_done = True
+            else:
+                print('This space is already taken')
+        except:
+            pass
+        print('')
+    return coord
 
 
 def coordinates_of_x(horizontal, vertical, left_or_right):
     center_x = vertical * size // 3 + size // 6
     center_y = horizontal * size // 3 + size // 6
-    offset = size // 12
+    offset = size // 10
     if left_or_right == 'L':
         return (center_x - offset, center_y - offset, center_x + offset, center_y + offset)
     elif left_or_right == "R":
@@ -108,25 +150,11 @@ def draw_x_o(horizontal, vertical, x_or_o):
     im = Image.open(board_path)
     draw = ImageDraw.Draw(im)
     if x_or_o == 'X':
-        draw.line(coordinates_of_x(horizontal, vertical, "L"), fill=(255, 0, 0), width=10)
-        draw.line(coordinates_of_x(horizontal, vertical, "R"), fill=(255, 0, 0), width=10)
+        draw.line(coordinates_of_x(horizontal, vertical, "L"), fill=(255, 0, 0), width=size//30)
+        draw.line(coordinates_of_x(horizontal, vertical, "R"), fill=(255, 0, 0), width=size//30)
     elif x_or_o == 'O':
-        draw.ellipse(coordinates_of_o(horizontal, vertical), fill=(255, 255, 255), outline=(0, 256, 0), width=10)
+        draw.ellipse(coordinates_of_o(horizontal, vertical), fill=(255, 255, 255), outline=(0, 256, 0), width=size//30)
     im.save(board_path, quality=100)
-
-
-def initial_setup(size):
-    try:
-        os.remove(board_path)
-    except:
-        pass
-    im = Image.new('RGB', (size, size), (256, 256, 256))
-    draw = ImageDraw.Draw(im)
-    for i in range(size // 3, size, size // 3):
-        draw.line((i, 0, i, size), fill=(0, 0, 0), width=10)
-        draw.line((0, i, size, i), fill=(0, 0, 0), width=10)
-    im.save(board_path, quality=100)
-    return [[' ' for x in range(3)] for y in range(3)]
 
 
 def check_if_win(board_position, symbol):
@@ -139,24 +167,6 @@ def check_if_win(board_position, symbol):
            or [board_position[i][2] for i in range(3)] == win \
            or [board_position[i][i] for i in range(3)] == win \
            or [board_position[i][-i - 1] for i in range(3)] == win
-
-
-def get_input_coordinates(board, symbol):
-    is_done = False
-    coord = [-1, -1]
-    while (not (0 <= coord[0] <= 2)) or (not (0 <= coord[1] <= 2)) or not is_done:
-        coord[0] = int(input(f'Enter the row to draw a {symbol} from 1 to 3): ')) - 1
-        coord[1] = int(input(f'Enter the column to draw a {symbol} from 1 to 3): ')) - 1
-        try:
-            correct = board[coord[0]][coord[1]] == " "
-            if correct:
-                is_done = True
-            else:
-                print('This space is already taken')
-        except:
-            pass
-        print('')
-    return coord
 
 
 def play_cycle(board):
