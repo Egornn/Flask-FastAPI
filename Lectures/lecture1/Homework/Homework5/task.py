@@ -84,7 +84,7 @@ def choose_mode(mode, candies, max_at_once):
 
 # 3.Создайте программу для игры в ""Крестики-нолики"".
 board_path = 'tic-tac-toe.jpg'
-size = 900
+size = 1500
 
 
 def initial_setup(size):
