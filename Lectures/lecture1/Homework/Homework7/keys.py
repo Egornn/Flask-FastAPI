@@ -1,2 +1,2 @@
 global keys
-keys = ['Last Name', "Name", "Number"]
+keys = ['Last Name', "Name", "Number", 'Alive']
