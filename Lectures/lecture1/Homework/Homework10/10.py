@@ -25,18 +25,19 @@ class TrafficLight():
         end_time = start_time + 20
 
         while time.time() < end_time:
-            if time.time() - start_time <= self.duration[self.__color]:
-                print(self.__color)
-            else:
+            if not time.time() - start_time <= self.duration[self.__color]:
                 self.__color = color_change(self.__color, self.duration)
-                print(self.__color)
                 start_time = time.time()
+            print(f'From the begining {time.time() - self.initiation_time}s passed. The color is {self.__color}')
             time.sleep(1)
 
 
-# traffic_light = TrafficLight()
-# traffic_light.running()
+def start_TL():
+    traffic_light = TrafficLight()
+    traffic_light.running()
 
+
+start_TL()
 
 class Road():
     def __init__(self, length, width):
@@ -48,9 +49,12 @@ class Road():
         return str(self._length * self._width * self.__mass_per_sm * road_thickness / 1000) + " тонн"
 
 
-road = Road(5000, 20)
-print(road.mas_for_road(5))
+def hit_the_road():
+    road = Road(5000, 20)
+    print(road.mas_for_road(5))
 
+
+hit_the_road()
 
 # 3. Реализовать базовый класс Worker (работник):
 # ● определить атрибуты: name, surname, position (должность), income (доход);
@@ -84,15 +88,18 @@ class Position(Worker):
         print("Creation of a postion")
 
 
-ivan = Position('Ivan', 'Ivanov', "Anume Lover", '10000', '1500')
-print(ivan.get_full_name())
-print(ivan.get_total_income())
+def do_worker():
+    ivan = Position('Ivan', 'Ivanov', "Anume Lover", '10000', '1500')
+    print(ivan.get_full_name())
+    print(ivan.get_total_income())
+
+do_worker()
 
 
 class TicTacToeBoard():
 
     def __init__(self):
-        self.__empty_board = [["_" for x in range(3)] for y in range(3)]
+        self.__empty_board = [["." for x in range(3)] for y in range(3)]
         self.__current_board = self.__empty_board
         self.__current_player = "X"
         self.__another_player = "O"
@@ -100,6 +107,8 @@ class TicTacToeBoard():
     def show_board(self):
         for line in self.__current_board:
             print(line)
+        print()
+
 
     def new_game(self):
         self.__current_board = self.__empty_board
@@ -130,7 +139,7 @@ class TicTacToeBoard():
 
     def make_move(self, row, col):
         row, col = row - 1, col - 1
-        if not self.check_field()==None:
+        if not self.check_field() == None:
             print("The game is already over")
         else:
             if self.__current_board[row][col] == "_":
@@ -148,22 +157,124 @@ class TicTacToeBoard():
                     self.__current_player, self.__another_player = \
                         self.__another_player, self.__current_player
             else:
-                print(f"This place ({row+1}, {col+1}) is already taken")
+                print(f"This place ({row + 1}, {col + 1}) is already taken")
 
 
-board = TicTacToeBoard()
-board.show_board()
+def play_ttt():
+    board = TicTacToeBoard()
+    board.show_board()
 
-board.make_move(2, 2)
-board.make_move(2, 3)
-board.make_move(2, 3)
-board.make_move(3, 1)
-board.make_move(1, 3)
-board.make_move(3, 3)
-board.make_move(3, 3)
-board.make_move(3, 2)
-board.make_move(3, 2)
-board.make_move(2, 1)
-board.make_move(1, 1)
-board.make_move(1, 2)
-board.make_move(1, 2)
+    board.make_move(2, 2)
+    board.make_move(2, 3)
+    board.make_move(2, 3)
+    board.make_move(3, 1)
+    board.make_move(1, 3)
+    board.make_move(3, 3)
+    board.make_move(3, 3)
+    board.make_move(3, 2)
+    board.make_move(3, 2)
+    board.make_move(2, 1)
+    board.make_move(1, 1)
+    board.make_move(1, 2)
+    board.make_move(1, 2)
+
+
+play_ttt()
+
+
+class SeaMap():
+    def __init__(self):
+        self.empty_map = [["." for x in range(10)] for y in range(10)]
+        self.current_map = self.empty_map
+
+    def reset_board(self):
+        self.current_map = self.empty_map
+
+    def cell(self, row, col):
+        row, col = row - 1, col - 1
+        return row + col
+
+    def show_map(self):
+        for i in self.current_map:
+            print(i)
+        print()
+
+    def shot(self, row, col, result):
+        row, col = row - 1, col - 1
+        if result == "miss":
+            self.current_map[row][col] = "*"
+        elif result == "hit":
+            self.current_map[row][col] = "X"
+        elif result == "sink":
+            self.current_map[row][col] = "X"
+            self.__after_sink(row, col)
+            self.__clean_the_S()
+
+    def __clean_the_S(self):
+        for row_n in range(len(self.current_map)):
+            for col_n in range(len(self.current_map[0])):
+                if self.current_map[row_n][col_n] == "S":
+                    self.current_map[row_n][col_n] = "X"
+
+    def __bool_adj(self, row, col, target_row, target_col):
+        if abs(row - target_row) == 1 and abs(col - target_col) == 0:
+            return True
+        if abs(row - target_row) == 0 and abs(col - target_col) == 1:
+            return True
+        return False
+
+    def __diag_adj(self, row, col, target_row, target_col):
+        cond = abs(row - target_row) <= 1 and \
+               abs(col - target_col) <= 1 and \
+               not (row == target_row and col == target_col)
+        return cond
+
+    def __after_sink(self, row, col):
+        self.current_map[row][col] = "S"
+        for row_n in range(len(self.current_map)):
+            for col_n in range(len(self.current_map[0])):
+                if self.current_map[row_n][col_n] == "X":
+                    if self.__bool_adj(row_n, col_n, row, col):
+                        self.__after_sink(row_n, col_n)
+                elif self.current_map[row_n][col_n] == ".":
+                    if self.__diag_adj(row_n, col_n, row, col):
+                        self.current_map[row_n][col_n] = "*"
+
+
+def play_battleship():
+
+    sm = SeaMap()
+    sm.shot(8, 2, 'miss')
+    sm.show_map()
+
+    sm.shot(8, 3, 'hit')
+    sm.show_map()
+    sm.shot(8, 4, 'hit')
+    sm.show_map()
+    sm.shot(6, 5, 'sink')
+    sm.show_map()
+    sm.shot(8, 5, 'sink')
+    sm.show_map()
+
+play_battleship()
+
+def tests():
+    test1 = SeaMap()
+    test1.shot(3,1, 'miss')
+    test1.shot(7,10,"miss")
+    test1.show_map()
+
+    test2=SeaMap()
+    test2.shot(3,1, 'sink')
+    test2.shot(7,10, 'hit')
+    test2.show_map()
+
+    test3=SeaMap()
+    test3.shot(1,1,"sink")
+    test3.shot(1,10,"sink")
+    test3.shot(10,1, "sink")
+    test3.shot(10,10,"sink")
+    test3.show_map()
+
+tests()
+
