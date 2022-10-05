@@ -1,3 +1,4 @@
+import sys
 import time as time
 
 
@@ -33,8 +34,8 @@ class TrafficLight():
             time.sleep(1)
 
 
-traffic_light = TrafficLight()
-traffic_light.running()
+# traffic_light = TrafficLight()
+# traffic_light.running()
 
 
 class Road():
@@ -68,6 +69,9 @@ class Worker():
         self.position = position
         self._income = {'wage': int(wage), "bonus": int(bonus)}
 
+    def info(self):
+        print("Create a worker")
+
 
 class Position(Worker):
     def get_full_name(self):
@@ -75,6 +79,91 @@ class Position(Worker):
 
     def get_total_income(self):
         return self._income["wage"] + self._income["bonus"]
-ivan=Position('Ivan', 'Ivanov', "Anume Lover", '10000', '1500')
+
+    def info(self):
+        print("Creation of a postion")
+
+
+ivan = Position('Ivan', 'Ivanov', "Anume Lover", '10000', '1500')
 print(ivan.get_full_name())
 print(ivan.get_total_income())
+
+
+class TicTacToeBoard():
+
+    def __init__(self):
+        self.__empty_board = [["_" for x in range(3)] for y in range(3)]
+        self.__current_board = self.__empty_board
+        self.__current_player = "X"
+        self.__another_player = "O"
+
+    def show_board(self):
+        for line in self.__current_board:
+            print(line)
+
+    def new_game(self):
+        self.__current_board = self.__empty_board
+
+    def get_field(self):
+        return self.__current_board
+
+    def check_field(self):
+        t = self.__current_board
+        lines = [
+            [t[0]],
+            [t[1]],
+            [t[2]],
+            [t[0][0], t[1][0], t[2][0]],
+            [t[0][1], t[1][1], t[2][1]],
+            [t[0][2], t[1][2], t[2][2]],
+            [t[0][0], t[1][1], t[2][2]],
+            [t[0][2], t[1][1], t[2][0]],
+        ]
+        if ["X" for x in range(3)] in lines:
+            return "X"
+        elif ["O" for x in range(3)] in lines:
+            return "O"
+        elif not ("_" in t[0] or "_" in t[1] or "_" in t[2]):
+            return "D"
+        else:
+            return None
+
+    def make_move(self, row, col):
+        row, col = row - 1, col - 1
+        if not self.check_field()==None:
+            print("The game is already over")
+        else:
+            if self.__current_board[row][col] == "_":
+                self.__current_board[row][col] = self.__current_player
+                self.show_board()
+                position = self.check_field()
+                if position == "X":
+                    print("Congrats to X player")
+                elif position == "O":
+                    print("Congrats to O player")
+                elif position == "D":
+                    print("Draw")
+                else:
+                    print('Next turn')
+                    self.__current_player, self.__another_player = \
+                        self.__another_player, self.__current_player
+            else:
+                print(f"This place ({row+1}, {col+1}) is already taken")
+
+
+board = TicTacToeBoard()
+board.show_board()
+
+board.make_move(2, 2)
+board.make_move(2, 3)
+board.make_move(2, 3)
+board.make_move(3, 1)
+board.make_move(1, 3)
+board.make_move(3, 3)
+board.make_move(3, 3)
+board.make_move(3, 2)
+board.make_move(3, 2)
+board.make_move(2, 1)
+board.make_move(1, 1)
+board.make_move(1, 2)
+board.make_move(1, 2)
