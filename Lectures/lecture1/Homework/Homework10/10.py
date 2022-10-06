@@ -1,6 +1,7 @@
 import sys
 import time as time
 
+#time.perf_counter()
 
 # Traffic light
 
