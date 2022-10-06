@@ -54,3 +54,4 @@ company1 = Company("Ozon", 'Marketplace', {'contact':6789}, person1,person2)
 company2 = Company("Azon", 'Market', {'private':6789}, person1)
 
 send_sms(person1,person2,company1,company2)
+#comment
