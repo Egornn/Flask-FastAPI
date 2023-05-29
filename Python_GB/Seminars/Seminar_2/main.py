@@ -10,6 +10,7 @@ BASES = {"b": 2, "o": 8, "h": 16}
 ALPHABET = list(string.ascii_lowercase)
 PI = decimal.Decimal("3.14159265358979323846264338327950288419716939937510")
 DEFAULT_BASE = 10
+LOG = []
 
 
 def dec_to_bases(number_to_convert: int, bases: dict) -> list:
@@ -82,6 +83,9 @@ def atm() -> None:
             current_balnce = current_balnce * (1 - tax_rate)
         return current_balnce
 
+    def logging(command, sum):
+        LOG.append((command, sum))
+
     balance = 0
     threshhold = 5_000_000_000
     tax = .1
@@ -92,7 +96,7 @@ def atm() -> None:
     interest_occurrence = 3
     interest = .03
     while True:
-        command = input('Available options are "Deposit", "Withdraw", "Exit": ').lower()
+        command = input('Available options are "Deposit", "Withdraw", "log", "Exit": ').lower()
         match command:
             case "deposit":
                 correct_input = False
@@ -104,7 +108,7 @@ def atm() -> None:
                         print("Incorrect input")
                         current_balance_print(balance)
                 balance += int(deposit)
-
+                logging(command, int(deposit))
                 after_interest_list = interest_on_balance(balance, count_of_deposit_withdrawal)
                 balance, count_of_deposit_withdrawal = after_interest_list[0], after_interest_list[1]
                 current_balance_print(balance)
@@ -125,6 +129,7 @@ def atm() -> None:
                         print("incorrect input")
                         current_balance_print(balance)
                 balance -= int(withdraw)
+                logging(command, int(withdraw))
                 after_interest_list = interest_on_balance(balance, count_of_deposit_withdrawal)
                 balance, count_of_deposit_withdrawal = after_interest_list[0], after_interest_list[1]
                 current_balance_print(balance)
@@ -132,40 +137,44 @@ def atm() -> None:
             case "exit":
                 return
 
+            case "log":
+                print(LOG)
+
             case _:
                 balance = wealth_tax(balance, threshhold, tax)
                 print("Incorrect command")
                 current_balance_print(balance)
 
 
-print("Task 3: to Bin & Oct")
-number_to_check = 11
-print(dec_to_bases(number_to_check, BASES))
-print([bin(number_to_check), oct(number_to_check), hex(number_to_check)])
+if __name__ == "__main__":
+    print("Task 3: to Bin & Oct")
+    number_to_check = 11
+    print(dec_to_bases(number_to_check, BASES))
+    print([bin(number_to_check), oct(number_to_check), hex(number_to_check)])
 
-print("Task 4: Area & Length of a Circle")
-radius = 999
-print(f"for Radius of {radius} - Length is {circle_length(radius, PI)}, Area is {circle_area(radius, PI)}")
+    print("Task 4: Area & Length of a Circle")
+    radius = 999
+    print(f"for Radius of {radius} - Length is {circle_length(radius, PI)}, Area is {circle_area(radius, PI)}")
 
-print("Task 5: Square Equation")
-first_coefficient, second_coefficient, third_coefficient = complex(2, 1), complex(-2, 1), complex(1, -1)
-print(f"{first_coefficient}x^2+({second_coefficient})x+({third_coefficient})=0 has roots: \
-{solve_square_equation(first_coefficient, second_coefficient, third_coefficient)}")
-first_coefficient, second_coefficient, third_coefficient = 1, 1, 10
-print(f"{first_coefficient}x^2+({second_coefficient})x+({third_coefficient})=0 has roots: \
-{solve_square_equation(first_coefficient, second_coefficient, third_coefficient)}")
+    print("Task 5: Square Equation")
+    first_coefficient, second_coefficient, third_coefficient = complex(2, 1), complex(-2, 1), complex(1, -1)
+    print(f"{first_coefficient}x^2+({second_coefficient})x+({third_coefficient})=0 has roots: \
+    {solve_square_equation(first_coefficient, second_coefficient, third_coefficient)}")
+    first_coefficient, second_coefficient, third_coefficient = 1, 1, 10
+    print(f"{first_coefficient}x^2+({second_coefficient})x+({third_coefficient})=0 has roots: \
+    {solve_square_equation(first_coefficient, second_coefficient, third_coefficient)}")
 
-print("Task 6: ATM")
-atm()
+    print("Task 6: ATM")
+    atm()
 
-print("Task 7: to Hex")
-number_to_check = 255
-print(dec_to_bases(number_to_check, BASES))
-print([bin(number_to_check), oct(number_to_check), hex(number_to_check)])
+    print("Task 7: to Hex")
+    number_to_check = 255
+    print(dec_to_bases(number_to_check, BASES))
+    print([bin(number_to_check), oct(number_to_check), hex(number_to_check)])
 
-print("Task 8: Fraction")
-fract_1 = "2/5"
-fract_2 = "4/3"
-print(fraction_sum(fract_1, fract_2), fraction_multiplication(fract_1, fract_2))
-print(fractions.Fraction(fract_1) + fractions.Fraction(fract_2), \
-      fractions.Fraction(fract_1) * fractions.Fraction(fract_2))
+    print("Task 8: Fraction")
+    fract_1 = "2/5"
+    fract_2 = "4/3"
+    print(fraction_sum(fract_1, fract_2), fraction_multiplication(fract_1, fract_2))
+    print(fractions.Fraction(fract_1) + fractions.Fraction(fract_2), \
+          fractions.Fraction(fract_1) * fractions.Fraction(fract_2))
