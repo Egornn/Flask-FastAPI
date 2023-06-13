@@ -2,6 +2,8 @@ import random
 import string
 from random import randint, uniform, choice, shuffle
 import os
+import shutil
+from pathlib import Path
 
 
 def random_numbers(pairs: int, file_name: str):
@@ -96,11 +98,52 @@ def free_files(dictionary_files: dict, path='random_5'):
         random_files(ext, files_number=num, folder=path)
 
 
+def sor_files(folder_path: str):
+    ext_dir_dict = {'png': 'Image', 'jpeg': 'Image', 'txt': 'Text', 'ini': 'Text', 'avi': 'Video', 'mp4': 'Video'}
+    file_list = os.listdir(folder_path)
+    for code in ext_dir_dict:
+        if not os.path.isdir(folder_path + '/' + ext_dir_dict[code]):
+            os.makedirs(folder_path + '/' + ext_dir_dict[code], exist_ok=True)
+    for file_name in file_list:
+        if os.path.isfile(folder_path + '/' + file_name):
+            extent = file_name.split('.')[-1]
+            if extent in ext_dir_dict.keys():
+                shutil.move(os.path.join(folder_path, file_name),
+                            os.path.join(folder_path + "/" + ext_dir_dict[extent], file_name))
+            print(file_name)
+
+
+def rename_files(count_nums: int, extension_start: str, extension_final: str,
+                 name_min: int, name_max: int, name_final: Path = '') -> None:
+    p = Path(Path().cwd())
+    serial_number = int('1' + ('0' * (count_nums - 1)))
+    try:
+        for obj in p.iterdir():
+            print(obj)
+            full_name = str(obj).split('\\')[-1]
+            file_name, file_extension = full_name.split('.')
+            if file_extension == extension_start:
+                Path(full_name).rename(
+                    f'{_name_clipping(file_name, name_min, name_max)}{name_final}{serial_number}.{extension_final}')
+                serial_number += 1
+    except:
+        print('Not all file are correctly named')
+
+
+def _name_clipping(current_name: str, name_min: int, name_max: int) -> str:
+    return current_name[name_min:name_max]
+
+
+def test_func():
+    return int('1' + ('0' * 5))
+
+
 if __name__ == "__main__":
-    # random_numbers(100, "pairs.txt")
-    # pseudo_names_generator("list of names.txt", 100)
-    # multiply_files("pairs.txt", 'list of names.txt', 'output_task_3.txt')
-    # random_files('txt', 6, 10, 10, 20, 2)
-    # free_files({'txt': 5, "ini": 3})
-    # free_files({'txt': 5, "ini": 3}, path="random_6/random_6")
+    random_numbers(100, "pairs.txt")
+    pseudo_names_generator("list of names.txt", 100)
+    multiply_files("pairs.txt", 'list of names.txt', 'output_task_3.txt')
+    random_files('txt', 6, 10, 10, 20, 2)
+    free_files({'txt': 5, "ini": 3})
+    free_files({'txt': 5, "ini": 3}, path="random_6/random_6")
+    sor_files("C:/Users/Егор/PycharmProjects/Python_GB/Seminars/Seminar_7/Seven")
     pass
