@@ -1,0 +1,56 @@
+{
+    "1": {
+        "name": "main.py",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "4429 b"
+    },
+    "2": {
+        "name": "output_1..csv",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "9098 b"
+    },
+    "3": {
+        "name": "output_1.json",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "9900 b"
+    },
+    "4": {
+        "name": "output_1.pickle",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "8314 b"
+    },
+    "5": {
+        "name": "Output_2.txt",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "451 b"
+    },
+    "6": {
+        "name": "Output_2.txt.csv",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "414 b"
+    },
+    "7": {
+        "name": "__init__.py",
+        "parent": "Seminar_8",
+        "type": "file",
+        "size": "0 b"
+    },
+    "8": {
+        "name": "Seminar_8",
+        "parent": "../../Seminars",
+        "type": "folder",
+        "size": "8192 b"
+    },
+    "9": {
+        "name": "__init__.py",
+        "parent": "Seminar_7",
+        "type": "file",
+        "size": "0 b"
+    }
+}
