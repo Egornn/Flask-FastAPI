@@ -3,8 +3,6 @@ from typing import Callable
 import random
 import json
 from functools import wraps
-from ..Seminar_6.Seminar.puzzle_mystery import puzzle
-
 
 
 def setup_guessing_game(func: Callable):
@@ -91,10 +89,7 @@ def save_them(func: Callable):
     def wrapper(*args):
         data = func(*args)
         with open('results.txt', mode='w', newline='', encoding='utf-8') as file_write:
-            csv_writer = csv.writer(file_write)
-            for row in data:
-                print(row)
-                csv_writer.writerow(row)
+            json.dump(data)
 
     return wrapper
 
@@ -129,5 +124,4 @@ if __name__ == "__main__":
     # print(guess_number())
     # print(solve_quadratic(11, 5, 1))
     # generate_csv("csv_data.csv")
-    # print(generate_csv('csv_data.csv'))
-
+    print(generate_csv('csv_data.csv'))
