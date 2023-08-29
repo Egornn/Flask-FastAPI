@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <meta name="description" content="A page">
+    <meta name="keywords" content="html template">
+</head>
+<body>
+
+<h1>Hello, my name is {{name}}</h1>
+<div class='display-3'>
+    {% if user %}
+    <p>You are {{user}}</p>
+    {% endif %}
+
+    {% if number ==1 %}
+    <p>You have {{number}} post to read</p>
+    {% elif number <4 %}
+    <p>You have {{number}} posts to read</p>
+    {% else %}
+    <p>You have {{number}}+ posts to read</p>
+    {% endif %}
+
+    {% for i in poem %}
+    <span class='text-black-50 col-12 col-md-6'>{{i}}</span>
+    {% endfor %}
+
+</div>
+</body>
+</html>
