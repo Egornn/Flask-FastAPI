@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>
+        {{title}}
+    </title>
+    <meta name="description" content="A page">
+    <meta name="keywords" content="html template">
+</head>
+<body>
+<p>
+    {% for new in news %}
+    <h2 class="news_title">{{new.news_title}}</h2>
+    <p class="news_text">{{new.text}}</p>
+    <p class="news_date">{{new.date}}</p>
+    {% endfor %}
+</p>
+</body>
+</html>

@@ -71,7 +71,7 @@ def users():
 @app.route('/base/')
 def base():
     context = {"title": 'Main'}
-    return render_template('base.html', **context)
+    return render_template('index_base.html', **context)
 
 
 @app.route('/extend/')

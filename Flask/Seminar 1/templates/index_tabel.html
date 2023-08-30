@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>
+        {{title}}
+    </title>
+    <meta name="description" content="A page">
+    <meta name="keywords" content="html template">
+</head>
+<body>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Grade</th>
+    </tr>
+    {% for person in students %}
+    <tr>
+        <td>{{person.name}}</td>
+        <td>{{person.surname}}</td>
+        <td>{{person.age}}</td>
+        <td>{{person.grade}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
