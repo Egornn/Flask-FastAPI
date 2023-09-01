@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %} {{ title }} {% endblock %} {% block content %}
+<div class="row alert alert-danger">
+    <p class="col-12">Error on server. We are trying to fix it right now<br>
+        <a href="{{ url }}">Please refresh this page in a few minutes</a>
+    </p>
+</div>
+{% endblock %}

@@ -31,7 +31,7 @@ def hello():
 def logout():
     resp = make_response(redirect('/'))
     resp.delete_cookie('username')
-    #resp.delete_cookie('useremail')
+    resp.delete_cookie('useremail')
     return resp
 
 
